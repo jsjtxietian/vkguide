@@ -7,6 +7,23 @@
 #include <vk_types.h>
 #include <vk_initializers.h>
 
+#include "VkBootstrap.h"
+
+#include <iostream>
+
+// we want to immediately abort when there is an error. In normal engines this would give an error message to the user, or perform a dump of state.
+using namespace std;
+#define VK_CHECK(x)                                                     \
+	do                                                                  \
+	{                                                                   \
+		VkResult err = x;                                               \
+		if (err)                                                        \
+		{                                                               \
+			std::cout << "Detected Vulkan error: " << err << std::endl; \
+			abort();                                                    \
+		}                                                               \
+	} while (0)
+
 void VulkanEngine::init()
 {
 	// We initialize SDL and create a window with it.
@@ -22,14 +39,92 @@ void VulkanEngine::init()
 		_windowExtent.height,
 		window_flags);
 
+	// load the core Vulkan structures
+	init_vulkan();
+
+	// create the swapchain
+	init_swapchain();
+
 	// everything went fine
 	_isInitialized = true;
 }
+
+void VulkanEngine::init_vulkan()
+{
+	vkb::InstanceBuilder builder;
+
+	// make the vulkan instance, with basic debug features
+	auto inst_ret = builder.set_app_name("Example Vulkan Application")
+						.request_validation_layers(true)
+						.use_default_debug_messenger()
+						.require_api_version(1, 1, 0)
+						.build();
+
+	vkb::Instance vkb_inst = inst_ret.value();
+
+	// grab the instance
+	_instance = vkb_inst.instance;
+	_debug_messenger = vkb_inst.debug_messenger;
+
+	SDL_Vulkan_CreateSurface(_window, _instance, &_surface);
+
+	// use vkbootstrap to select a gpu.
+	// We want a gpu that can write to the SDL surface and supports vulkan 1.2
+	vkb::PhysicalDeviceSelector selector{vkb_inst};
+	vkb::PhysicalDevice physicalDevice = selector
+											 .set_minimum_version(1, 1)
+											 .set_surface(_surface)
+											 .select()
+											 .value();
+
+	// create the final vulkan device
+	vkb::DeviceBuilder deviceBuilder{physicalDevice};
+
+	vkb::Device vkbDevice = deviceBuilder.build().value();
+
+	// Get the VkDevice handle used in the rest of a vulkan application
+	_device = vkbDevice.device;
+	_chosenGPU = physicalDevice.physical_device;
+}
+
+void VulkanEngine::init_swapchain()
+{
+	vkb::SwapchainBuilder swapchainBuilder{_chosenGPU, _device, _surface};
+
+	vkb::Swapchain vkbSwapchain = swapchainBuilder
+									  .use_default_format_selection()
+									  // use vsync present mode
+									  .set_desired_present_mode(VK_PRESENT_MODE_FIFO_KHR)
+									  .set_desired_extent(_windowExtent.width, _windowExtent.height)
+									  .build()
+									  .value();
+
+	// store swapchain and its related images
+	_swapchain = vkbSwapchain.swapchain;
+	_swapchainImages = vkbSwapchain.get_images().value();
+	_swapchainImageViews = vkbSwapchain.get_image_views().value();
+
+	_swapchainImageFormat = vkbSwapchain.image_format;
+}
+
 void VulkanEngine::cleanup()
 {
+	// our initialization order was SDL Window -> Instance -> Surface -> Device -> Swapchain, 
+	// we are doing exactly the opposite order for destruction.
 	if (_isInitialized)
 	{
+		vkDestroySwapchainKHR(_device, _swapchain, nullptr);
 
+		// destroy swapchain resources
+		for (int i = 0; i < _swapchainImageViews.size(); i++)
+		{
+			vkDestroyImageView(_device, _swapchainImageViews[i], nullptr);
+		}
+
+		vkDestroyDevice(_device, nullptr);
+		vkDestroySurfaceKHR(_instance, _surface, nullptr);
+		vkb::destroy_debug_utils_messenger(_instance, _debug_messenger);
+		vkDestroyInstance(_instance, nullptr);
 		SDL_DestroyWindow(_window);
 	}
 }
