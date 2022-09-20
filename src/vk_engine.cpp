@@ -10,6 +10,7 @@
 #include "VkBootstrap.h"
 
 #include <iostream>
+#include <fstream>
 
 // we want to immediately abort when there is an error.
 // In normal engines this would give an error message to the user, or perform a dump of state.
@@ -53,6 +54,8 @@ void VulkanEngine::init()
 	init_framebuffers();
 
 	init_sync_structures();
+
+	init_pipelines();
 
 	// everything went fine
 	_isInitialized = true;
@@ -257,11 +260,18 @@ void VulkanEngine::cleanup()
 	// we are doing exactly the opposite order for destruction.
 	if (_isInitialized)
 	{
+		// make sure the gpu has stopped doing its things
+		vkDeviceWaitIdle(_device);
+
 		vkDestroyCommandPool(_device, _commandPool, nullptr);
+
+		// destroy sync objects
+		vkDestroyFence(_device, _renderFence, nullptr);
+		vkDestroySemaphore(_device, _renderSemaphore, nullptr);
+		vkDestroySemaphore(_device, _presentSemaphore, nullptr);
 
 		vkDestroySwapchainKHR(_device, _swapchain, nullptr);
 
-		// destroy the main renderpass
 		vkDestroyRenderPass(_device, _renderPass, nullptr);
 
 		// destroy swapchain resources
@@ -272,10 +282,12 @@ void VulkanEngine::cleanup()
 			vkDestroyImageView(_device, _swapchainImageViews[i], nullptr);
 		}
 
-		vkDestroyDevice(_device, nullptr);
 		vkDestroySurfaceKHR(_instance, _surface, nullptr);
+
+		vkDestroyDevice(_device, nullptr);
 		vkb::destroy_debug_utils_messenger(_instance, _debug_messenger);
 		vkDestroyInstance(_instance, nullptr);
+
 		SDL_DestroyWindow(_window);
 	}
 }
@@ -380,6 +392,75 @@ void VulkanEngine::draw()
 
 	// increase the number of frames drawn
 	_frameNumber++;
+}
+
+void VulkanEngine::init_pipelines()
+{
+
+	VkShaderModule triangleFragShader;
+	if (!load_shader_module("../../shaders/triangle.frag.spv", &triangleFragShader))
+	{
+		std::cout << "Error when building the triangle fragment shader module" << std::endl;
+	}
+	else
+	{
+		std::cout << "Triangle fragment shader successfully loaded" << std::endl;
+	}
+
+	VkShaderModule triangleVertexShader;
+	if (!load_shader_module("../../shaders/triangle.vert.spv", &triangleVertexShader))
+	{
+		std::cout << "Error when building the triangle vertex shader module" << std::endl;
+	}
+	else
+	{
+		std::cout << "Triangle vertex shader successfully loaded" << std::endl;
+	}
+}
+
+bool VulkanEngine::load_shader_module(const char *filePath, VkShaderModule *outShaderModule)
+{
+	// open the file. With cursor at the end
+	std::ifstream file(filePath, std::ios::ate | std::ios::binary);
+
+	if (!file.is_open())
+	{
+		return false;
+	}
+
+	// find what the size of the file is by looking up the location of the cursor
+	// because the cursor is at the end, it gives the size directly in bytes
+	size_t fileSize = (size_t)file.tellg();
+
+	// spirv expects the buffer to be on uint32, so make sure to reserve a int vector big enough for the entire file
+	std::vector<uint32_t> buffer(fileSize / sizeof(uint32_t));
+
+	// put file cursor at beggining
+	file.seekg(0);
+
+	// load the entire file into the buffer
+	file.read((char *)buffer.data(), fileSize);
+
+	// now that the file is loaded into the buffer, we can close it
+	file.close();
+
+	// create a new shader module, using the buffer we loaded
+	VkShaderModuleCreateInfo createInfo = {};
+	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+	createInfo.pNext = nullptr;
+
+	// codeSize has to be in bytes, so multply the ints in the buffer by size of int to know the real size of the buffer
+	createInfo.codeSize = buffer.size() * sizeof(uint32_t);
+	createInfo.pCode = buffer.data();
+
+	// check that the creation goes well.
+	VkShaderModule shaderModule;
+	if (vkCreateShaderModule(_device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS)
+	{
+		return false;
+	}
+	*outShaderModule = shaderModule;
+	return true;
 }
 
 void VulkanEngine::run()
