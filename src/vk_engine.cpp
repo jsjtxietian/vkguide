@@ -460,9 +460,9 @@ void VulkanEngine::draw()
 void VulkanEngine::init_pipelines()
 {
 	VkShaderModule triangleFragShader;
-	if (!load_shader_module("../../shaders/triangle.frag.spv", &triangleFragShader))
+	if (!load_shader_module("../../shaders/colored_triangle.frag.spv", &triangleFragShader))
 	{
-		std::cout << "Error when building the triangle fragment shader module" << std::endl;
+		std::cout << "Error when building the colored_triangle fragment shader module" << std::endl;
 	}
 	else
 	{
@@ -470,9 +470,9 @@ void VulkanEngine::init_pipelines()
 	}
 
 	VkShaderModule triangleVertexShader;
-	if (!load_shader_module("../../shaders/triangle.vert.spv", &triangleVertexShader))
+	if (!load_shader_module("../../shaders/colored_triangle.vert.spv", &triangleVertexShader))
 	{
-		std::cout << "Error when building the triangle vertex shader module" << std::endl;
+		std::cout << "Error when building the colored_triangle vertex shader module" << std::endl;
 	}
 	else
 	{
