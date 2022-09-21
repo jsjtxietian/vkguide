@@ -4,6 +4,7 @@
 #pragma once
 
 #include <vk_types.h>
+#include "vk_mesh.h"
 #include <vector>
 #include <deque>
 #include <functional>
@@ -53,6 +54,7 @@ public:
 	int _selectedShader{0};
 	struct SDL_Window *_window{nullptr};
 	DeletionQueue _mainDeletionQueue;
+	VmaAllocator _allocator; // vma lib allocator
 
 	VkExtent2D _windowExtent{800, 600};
 
@@ -90,6 +92,9 @@ public:
 	VkPipeline _trianglePipeline;
 	VkPipeline _redTrianglePipeline;
 
+	VkPipeline _meshPipeline;
+	Mesh _triangleMesh;
+
 	// initializes everything in the engine
 	void init();
 
@@ -113,4 +118,8 @@ private:
 
 	// loads a shader module from a spir-v file. Returns false if it errors
 	bool load_shader_module(const char *filePath, VkShaderModule *outShaderModule);
+
+	void load_meshes();
+
+	void upload_mesh(Mesh &mesh);
 };
