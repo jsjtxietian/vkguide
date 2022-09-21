@@ -5,6 +5,8 @@
 
 #include <vk_types.h>
 #include <vector>
+#include <deque>
+#include <functional>
 
 class PipelineBuilder
 {
@@ -22,6 +24,27 @@ public:
 	VkPipeline build_pipeline(VkDevice device, VkRenderPass pass);
 };
 
+struct DeletionQueue
+{
+	std::deque<std::function<void()>> deletors;
+
+	void push_function(std::function<void()> &&function)
+	{
+		deletors.push_back(function);
+	}
+
+	void flush()
+	{
+		// reverse iterate the deletion queue to execute all the functions
+		for (auto it = deletors.rbegin(); it != deletors.rend(); it++)
+		{
+			(*it)(); // call the function
+		}
+
+		deletors.clear();
+	}
+};
+
 class VulkanEngine
 {
 public:
@@ -29,6 +52,7 @@ public:
 	int _frameNumber{0};
 	int _selectedShader{0};
 	struct SDL_Window *_window{nullptr};
+	DeletionQueue _mainDeletionQueue;
 
 	VkExtent2D _windowExtent{800, 600};
 
