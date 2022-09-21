@@ -27,9 +27,10 @@ class VulkanEngine
 public:
 	bool _isInitialized{false};
 	int _frameNumber{0};
+	int _selectedShader{0};
 	struct SDL_Window *_window{nullptr};
 
-	VkExtent2D _windowExtent{1700, 900};
+	VkExtent2D _windowExtent{800, 600};
 
 	VkInstance _instance;					   // Vulkan library handle
 	VkDebugUtilsMessengerEXT _debug_messenger; // Vulkan debug output handle
@@ -63,6 +64,7 @@ public:
 
 	VkPipelineLayout _trianglePipelineLayout;
 	VkPipeline _trianglePipeline;
+	VkPipeline _redTrianglePipeline;
 
 	// initializes everything in the engine
 	void init();
