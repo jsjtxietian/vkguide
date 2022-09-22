@@ -123,6 +123,8 @@ void VulkanEngine::init()
 
 	load_meshes();
 
+	init_scene();
+
 	// everything went fine
 	_isInitialized = true;
 }
@@ -424,32 +426,30 @@ void VulkanEngine::cleanup()
 
 void VulkanEngine::draw()
 {
-	// wait until the GPU has finished rendering the last frame. Timeout of 1 second
+	// check if window is minimized and skip drawing
+	if (SDL_GetWindowFlags(_window) & SDL_WINDOW_MINIMIZED)
+		return;
+
+	// wait until the gpu has finished rendering the last frame. Timeout of 1 second
 	VK_CHECK(vkWaitForFences(_device, 1, &_renderFence, true, 1000000000));
 	VK_CHECK(vkResetFences(_device, 1, &_renderFence));
 
 	// now that we are sure that the commands finished executing, we can safely reset the command buffer to begin recording again.
 	VK_CHECK(vkResetCommandBuffer(_mainCommandBuffer, 0));
 
-	// request image from the swapchain, one second timeout
+	// request image from the swapchain
 	uint32_t swapchainImageIndex;
-	VK_CHECK(vkAcquireNextImageKHR(_device, _swapchain, 1000000000,
-								   _presentSemaphore, nullptr, &swapchainImageIndex));
+	VK_CHECK(vkAcquireNextImageKHR(_device, _swapchain, 1000000000, _presentSemaphore, nullptr, &swapchainImageIndex));
 
 	// naming it cmd for shorter writing
 	VkCommandBuffer cmd = _mainCommandBuffer;
 
-	// begin the command buffer recording. We will use this command buffer exactly once, so we want to let Vulkan know that
-	VkCommandBufferBeginInfo cmdBeginInfo = {};
-	cmdBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-	cmdBeginInfo.pNext = nullptr;
-
-	cmdBeginInfo.pInheritanceInfo = nullptr;
-	cmdBeginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+	// begin the command buffer recording. We will use this command buffer exactly once, so we want to let vulkan know that
+	VkCommandBufferBeginInfo cmdBeginInfo = vkinit::command_buffer_begin_info(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
 
 	VK_CHECK(vkBeginCommandBuffer(cmd, &cmdBeginInfo));
 
-	// make a clear-color from frame number. This will flash with a 120*pi frame period.
+	// make a clear-color from frame number. This will flash with a 120 frame period.
 	VkClearValue clearValue;
 	float flash = abs(sin(_frameNumber / 120.f));
 	clearValue.color = {{0.0f, 0.0f, flash, 1.0f}};
@@ -460,55 +460,18 @@ void VulkanEngine::draw()
 
 	// start the main renderpass.
 	// We will use the clear color from above, and the framebuffer of the index the swapchain gave us
-	// start the main renderpass.
-	// We will use the clear color from above, and the framebuffer of the index the swapchain gave us
 	VkRenderPassBeginInfo rpInfo = vkinit::renderpass_begin_info(_renderPass, _windowExtent, _framebuffers[swapchainImageIndex]);
 
 	// connect clear values
 	rpInfo.clearValueCount = 2;
+
 	VkClearValue clearValues[] = {clearValue, depthClear};
+
 	rpInfo.pClearValues = &clearValues[0];
 
-	// bind the framebuffers, clear the image, and put the images in the layout we specified when creating the renderpass
 	vkCmdBeginRenderPass(cmd, &rpInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-	// if (_selectedShader == 0)
-	// {
-	// 	vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, _trianglePipeline);
-	// }
-	// else
-	// {
-	// 	vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, _redTrianglePipeline);
-	// }
-
-	vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, _meshPipeline);
-
-	// bind the mesh vertex buffer with offset 0
-	VkDeviceSize offset = 0;
-	vkCmdBindVertexBuffers(cmd, 0, 1, &_monkeyMesh._vertexBuffer._buffer, &offset);
-
-	// make a model view matrix for rendering the object
-	// camera position
-	glm::vec3 camPos = {0.f, 0.f, -2.f};
-
-	glm::mat4 view = glm::translate(glm::mat4(1.f), camPos);
-	// camera projection
-	glm::mat4 projection = glm::perspective(glm::radians(70.f), 1700.f / 900.f, 0.1f, 200.0f);
-	projection[1][1] *= -1;
-	// model rotation
-	glm::mat4 model = glm::rotate(glm::mat4{1.0f}, glm::radians(_frameNumber * 0.4f), glm::vec3(0, 1, 0));
-
-	// calculate final mesh matrix
-	glm::mat4 mesh_matrix = projection * view * model;
-
-	MeshPushConstants constants;
-	constants.render_matrix = mesh_matrix;
-
-	// upload the matrix to the GPU via push constants
-	vkCmdPushConstants(cmd, _meshPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(MeshPushConstants), &constants);
-
-	// we can now draw the mesh
-	vkCmdDraw(cmd, _monkeyMesh._vertices.size(), 1, 0, 0);
+	draw_objects(cmd, _renderables.data(), _renderables.size());
 
 	// finalize the render pass
 	vkCmdEndRenderPass(cmd);
@@ -519,10 +482,7 @@ void VulkanEngine::draw()
 	// we want to wait on the _presentSemaphore, as that semaphore is signaled when the swapchain is ready
 	// we will signal the _renderSemaphore, to signal that rendering has finished
 
-	VkSubmitInfo submit = {};
-	submit.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-	submit.pNext = nullptr;
-
+	VkSubmitInfo submit = vkinit::submit_info(&cmd);
 	VkPipelineStageFlags waitStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 
 	submit.pWaitDstStageMask = &waitStage;
@@ -533,19 +493,15 @@ void VulkanEngine::draw()
 	submit.signalSemaphoreCount = 1;
 	submit.pSignalSemaphores = &_renderSemaphore;
 
-	submit.commandBufferCount = 1;
-	submit.pCommandBuffers = &cmd;
-
 	// submit command buffer to the queue and execute it.
 	//  _renderFence will now block until the graphic commands finish execution
 	VK_CHECK(vkQueueSubmit(_graphicsQueue, 1, &submit, _renderFence));
 
-	// this will put the image we just rendered into the visible window.
-	// we want to wait on the _renderSemaphore for that,
-	// as it's necessary that drawing commands have finished before the image is displayed to the user
-	VkPresentInfoKHR presentInfo = {};
-	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-	presentInfo.pNext = nullptr;
+	// prepare present
+	//  this will put the image we just rendered to into the visible window.
+	//  we want to wait on the _renderSemaphore for that,
+	//  as its necessary that drawing commands have finished before the image is displayed to the user
+	VkPresentInfoKHR presentInfo = vkinit::present_info();
 
 	presentInfo.pSwapchains = &_swapchain;
 	presentInfo.swapchainCount = 1;
@@ -717,6 +673,8 @@ void VulkanEngine::init_pipelines()
 	// build the mesh triangle pipeline
 	_meshPipeline = pipelineBuilder.build_pipeline(_device, _renderPass);
 
+	create_material(_meshPipeline, _meshPipelineLayout, "defaultmesh");
+
 	// destroy all shader modules, outside of the queue
 	vkDestroyShaderModule(_device, meshVertShader, nullptr);
 	vkDestroyShaderModule(_device, redTriangleVertShader, nullptr);
@@ -793,12 +751,14 @@ void VulkanEngine::load_meshes()
 	_triangleMesh._vertices[1].color = {0.f, 1.f, 0.0f}; // pure green
 	_triangleMesh._vertices[2].color = {0.f, 1.f, 0.0f}; // pure green
 
-	// load the monkey
 	_monkeyMesh.load_from_obj("../../assets/monkey_smooth.obj");
 
-	// make sure both meshes are sent to the GPU
 	upload_mesh(_triangleMesh);
 	upload_mesh(_monkeyMesh);
+
+	// note that we are copying them. Eventually we will delete the hardcoded _monkey and _triangle meshes, so it's no problem now.
+	_meshes["monkey"] = _monkeyMesh;
+	_meshes["triangle"] = _triangleMesh;
 }
 
 void VulkanEngine::upload_mesh(Mesh &mesh)
@@ -863,5 +823,114 @@ void VulkanEngine::run()
 		}
 
 		draw();
+	}
+}
+
+Material *VulkanEngine::create_material(VkPipeline pipeline, VkPipelineLayout layout, const std::string &name)
+{
+	Material mat;
+	mat.pipeline = pipeline;
+	mat.pipelineLayout = layout;
+	_materials[name] = mat;
+	return &_materials[name];
+}
+
+Material *VulkanEngine::get_material(const std::string &name)
+{
+	// search for the object, and return nullptr if not found
+	auto it = _materials.find(name);
+	if (it == _materials.end())
+	{
+		return nullptr;
+	}
+	else
+	{
+		return &(*it).second;
+	}
+}
+
+Mesh *VulkanEngine::get_mesh(const std::string &name)
+{
+	auto it = _meshes.find(name);
+	if (it == _meshes.end())
+	{
+		return nullptr;
+	}
+	else
+	{
+		return &(*it).second;
+	}
+}
+
+void VulkanEngine::draw_objects(VkCommandBuffer cmd, RenderObject *first, int count)
+{
+	// make a model view matrix for rendering the object
+	// camera view
+	glm::vec3 camPos = {0.f, -6.f, -10.f};
+
+	glm::mat4 view = glm::translate(glm::mat4(1.f), camPos);
+	// camera projection
+	glm::mat4 projection = glm::perspective(glm::radians(70.f), 1700.f / 900.f, 0.1f, 200.0f);
+	projection[1][1] *= -1;
+
+	Mesh *lastMesh = nullptr;
+	Material *lastMaterial = nullptr;
+	for (int i = 0; i < count; i++)
+	{
+		RenderObject &object = first[i];
+
+		// only bind the pipeline if it doesn't match with the already bound one
+		if (object.material != lastMaterial)
+		{
+
+			vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, object.material->pipeline);
+			lastMaterial = object.material;
+		}
+
+		glm::mat4 model = object.transformMatrix;
+		// final render matrix, that we are calculating on the cpu
+		glm::mat4 mesh_matrix = projection * view * model;
+
+		MeshPushConstants constants;
+		constants.render_matrix = mesh_matrix;
+
+		// upload the mesh to the GPU via push constants
+		vkCmdPushConstants(cmd, object.material->pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(MeshPushConstants), &constants);
+
+		// only bind the mesh if it's a different one from last bind
+		if (object.mesh != lastMesh)
+		{
+			// bind the mesh vertex buffer with offset 0
+			VkDeviceSize offset = 0;
+			vkCmdBindVertexBuffers(cmd, 0, 1, &object.mesh->_vertexBuffer._buffer, &offset);
+			lastMesh = object.mesh;
+		}
+		// we can now draw
+		vkCmdDraw(cmd, object.mesh->_vertices.size(), 1, 0, 0);
+	}
+}
+
+void VulkanEngine::init_scene()
+{
+	RenderObject monkey;
+	monkey.mesh = get_mesh("monkey");
+	monkey.material = get_material("defaultmesh");
+	monkey.transformMatrix = glm::mat4{1.0f};
+
+	_renderables.push_back(monkey);
+
+	for (int x = -20; x <= 20; x++)
+	{
+		for (int y = -20; y <= 20; y++)
+		{
+			RenderObject tri;
+			tri.mesh = get_mesh("triangle");
+			tri.material = get_material("defaultmesh");
+			glm::mat4 translation = glm::translate(glm::mat4{1.0}, glm::vec3(x, 0, y));
+			glm::mat4 scale = glm::scale(glm::mat4{1.0}, glm::vec3(0.2, 0.2, 0.2));
+			tri.transformMatrix = translation * scale;
+
+			_renderables.push_back(tri);
+		}
 	}
 }
