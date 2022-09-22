@@ -8,7 +8,7 @@
 #include <vector>
 #include <deque>
 #include <functional>
-
+#include <glm/glm.hpp>
 class PipelineBuilder
 {
 public:
@@ -44,6 +44,12 @@ struct DeletionQueue
 
 		deletors.clear();
 	}
+};
+
+struct MeshPushConstants
+{
+	glm::vec4 data;
+	glm::mat4 render_matrix;
 };
 
 class VulkanEngine
@@ -92,6 +98,7 @@ public:
 	VkPipeline _trianglePipeline;
 	VkPipeline _redTrianglePipeline;
 
+	VkPipelineLayout _meshPipelineLayout;
 	VkPipeline _meshPipeline;
 	Mesh _triangleMesh;
 
