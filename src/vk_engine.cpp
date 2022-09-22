@@ -423,7 +423,7 @@ void VulkanEngine::draw()
 
 	// bind the mesh vertex buffer with offset 0
 	VkDeviceSize offset = 0;
-	vkCmdBindVertexBuffers(cmd, 0, 1, &_triangleMesh._vertexBuffer._buffer, &offset);
+	vkCmdBindVertexBuffers(cmd, 0, 1, &_monkeyMesh._vertexBuffer._buffer, &offset);
 
 	// make a model view matrix for rendering the object
 	// camera position
@@ -446,7 +446,7 @@ void VulkanEngine::draw()
 	vkCmdPushConstants(cmd, _meshPipelineLayout, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(MeshPushConstants), &constants);
 
 	// we can now draw the mesh
-	vkCmdDraw(cmd, _triangleMesh._vertices.size(), 1, 0, 0);
+	vkCmdDraw(cmd, _monkeyMesh._vertices.size(), 1, 0, 0);
 
 	// finalize the render pass
 	vkCmdEndRenderPass(cmd);
@@ -718,22 +718,22 @@ bool VulkanEngine::load_shader_module(const char *filePath, VkShaderModule *outS
 
 void VulkanEngine::load_meshes()
 {
-	// make the array 3 vertices long
 	_triangleMesh._vertices.resize(3);
 
-	// vertex positions
-	_triangleMesh._vertices[0].position = {1.f, 1.f, 0.0f};
-	_triangleMesh._vertices[1].position = {-1.f, 1.f, 0.0f};
-	_triangleMesh._vertices[2].position = {0.f, -1.f, 0.0f};
+	_triangleMesh._vertices[0].position = {1.f, 1.f, 0.5f};
+	_triangleMesh._vertices[1].position = {-1.f, 1.f, 0.5f};
+	_triangleMesh._vertices[2].position = {0.f, -1.f, 0.5f};
 
-	// vertex colors, all green
 	_triangleMesh._vertices[0].color = {0.f, 1.f, 0.0f}; // pure green
 	_triangleMesh._vertices[1].color = {0.f, 1.f, 0.0f}; // pure green
 	_triangleMesh._vertices[2].color = {0.f, 1.f, 0.0f}; // pure green
 
-	// we don't care about the vertex normals
+	// load the monkey
+	_monkeyMesh.load_from_obj("../../assets/monkey_smooth.obj");
 
+	// make sure both meshes are sent to the GPU
 	upload_mesh(_triangleMesh);
+	upload_mesh(_monkeyMesh);
 }
 
 void VulkanEngine::upload_mesh(Mesh &mesh)
