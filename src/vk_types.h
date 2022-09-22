@@ -14,3 +14,9 @@ struct AllocatedBuffer
     // holds the state that the VMA library uses, like the memory that buffer was allocated from, and its size
     VmaAllocation _allocation;
 };
+
+struct AllocatedImage
+{
+    VkImage _image;
+    VmaAllocation _allocation;
+};
