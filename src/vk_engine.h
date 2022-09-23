@@ -26,6 +26,15 @@ struct RenderObject
 	glm::mat4 transformMatrix;
 };
 
+struct FrameData
+{
+	VkSemaphore _presentSemaphore, _renderSemaphore;
+	VkFence _renderFence;
+
+	VkCommandPool _commandPool;
+	VkCommandBuffer _mainCommandBuffer;
+};
+
 class PipelineBuilder
 {
 public:
@@ -69,6 +78,8 @@ struct MeshPushConstants
 	glm::vec4 data;
 	glm::mat4 render_matrix;
 };
+// number of frames to overlap when rendering
+constexpr unsigned int FRAME_OVERLAP = 2;
 
 class VulkanEngine
 {
@@ -126,6 +137,12 @@ public:
 
 	// the format for the depth image
 	VkFormat _depthFormat;
+
+	// frame storage
+	FrameData _frames[FRAME_OVERLAP];
+
+	// getter for the frame we are rendering to right now.
+	FrameData &get_current_frame();
 
 	// default array of renderable objects
 	std::vector<RenderObject> _renderables;
