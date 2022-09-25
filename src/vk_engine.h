@@ -88,6 +88,15 @@ struct MeshPushConstants
 	glm::vec4 data;
 	glm::mat4 render_matrix;
 };
+
+struct GPUSceneData
+{
+	glm::vec4 fogColor;		// w is for exponent
+	glm::vec4 fogDistances; // x for min, y for max, zw unused.
+	glm::vec4 ambientColor;
+	glm::vec4 sunlightDirection; // w for sun power
+	glm::vec4 sunlightColor;
+};
 // number of frames to overlap when rendering
 constexpr unsigned int FRAME_OVERLAP = 2;
 
@@ -108,6 +117,8 @@ public:
 	VkPhysicalDevice _chosenGPU;			   // GPU chosen as the default device
 	VkDevice _device;						   // Vulkan device for commands
 	VkSurfaceKHR _surface;					   // Vulkan window surface
+
+	VkPhysicalDeviceProperties _gpuProperties;
 
 	VkSwapchainKHR _swapchain;
 
@@ -147,6 +158,9 @@ public:
 
 	VkDescriptorSetLayout _globalSetLayout;
 	VkDescriptorPool _descriptorPool;
+
+	GPUSceneData _sceneParameters;
+	AllocatedBuffer _sceneParameterBuffer;
 
 	// the format for the depth image
 	VkFormat _depthFormat;
@@ -206,4 +220,5 @@ private:
 
 	AllocatedBuffer create_buffer(size_t allocSize,
 								  VkBufferUsageFlags usage, VmaMemoryUsage memoryUsage);
+	size_t pad_uniform_buffer_size(size_t originalSize);
 };
