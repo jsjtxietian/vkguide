@@ -8,15 +8,11 @@ namespace vkinit
 
 	VkCommandBufferAllocateInfo command_buffer_allocate_info(VkCommandPool pool, uint32_t count = 1, VkCommandBufferLevel level = VK_COMMAND_BUFFER_LEVEL_PRIMARY);
 
-	VkCommandBufferBeginInfo command_buffer_begin_info(VkCommandBufferUsageFlags flags = 0);
-
 	VkFramebufferCreateInfo framebuffer_create_info(VkRenderPass renderPass, VkExtent2D extent);
 
 	VkFenceCreateInfo fence_create_info(VkFenceCreateFlags flags = 0);
 
 	VkSemaphoreCreateInfo semaphore_create_info(VkSemaphoreCreateFlags flags = 0);
-
-	VkSubmitInfo submit_info(VkCommandBuffer *cmd);
 
 	VkPresentInfoKHR present_info();
 
@@ -45,4 +41,7 @@ namespace vkinit
 	VkDescriptorSetLayoutBinding descriptorset_layout_binding(VkDescriptorType type, VkShaderStageFlags stageFlags, uint32_t binding);
 
 	VkWriteDescriptorSet write_descriptor_buffer(VkDescriptorType type, VkDescriptorSet dstSet, VkDescriptorBufferInfo *bufferInfo, uint32_t binding);
+
+	VkCommandBufferBeginInfo command_buffer_begin_info(VkCommandBufferUsageFlags flags = 0);
+	VkSubmitInfo submit_info(VkCommandBuffer *cmd);
 }

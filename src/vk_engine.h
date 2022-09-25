@@ -11,6 +11,13 @@
 #include <functional>
 #include <glm/glm.hpp>
 
+struct UploadContext
+{
+	VkFence _uploadFence;
+	VkCommandPool _commandPool;
+	VkCommandBuffer _commandBuffer;
+};
+
 // note that we store the VkPipeline and layout by value, not pointer.
 // They are 64 bit handles to internal driver structures anyway so storing pointers to them isn't very useful
 struct Material
@@ -179,6 +186,10 @@ public:
 
 	// getter for the frame we are rendering to right now.
 	FrameData &get_current_frame();
+
+	UploadContext _uploadContext;
+
+	void immediate_submit(std::function<void(VkCommandBuffer cmd)> &&function);
 
 	// default array of renderable objects
 	std::vector<RenderObject> _renderables;
