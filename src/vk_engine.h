@@ -26,6 +26,13 @@ struct RenderObject
 	glm::mat4 transformMatrix;
 };
 
+struct GPUCameraData
+{
+	glm::mat4 view;
+	glm::mat4 proj;
+	glm::mat4 viewproj;
+};
+
 struct FrameData
 {
 	VkSemaphore _presentSemaphore, _renderSemaphore;
@@ -33,6 +40,9 @@ struct FrameData
 
 	VkCommandPool _commandPool;
 	VkCommandBuffer _mainCommandBuffer;
+
+	AllocatedBuffer cameraBuffer;
+	VkDescriptorSet globalDescriptor;
 };
 
 class PipelineBuilder
@@ -135,6 +145,9 @@ public:
 	VkImageView _depthImageView;
 	AllocatedImage _depthImage;
 
+	VkDescriptorSetLayout _globalSetLayout;
+	VkDescriptorPool _descriptorPool;
+
 	// the format for the depth image
 	VkFormat _depthFormat;
 
@@ -182,6 +195,7 @@ private:
 	void init_sync_structures();
 	void init_pipelines();
 	void init_scene();
+	void init_descriptors();
 
 	// loads a shader module from a spir-v file. Returns false if it errors
 	bool load_shader_module(const char *filePath, VkShaderModule *outShaderModule);
@@ -189,4 +203,7 @@ private:
 	void load_meshes();
 
 	void upload_mesh(Mesh &mesh);
+
+	AllocatedBuffer create_buffer(size_t allocSize,
+								  VkBufferUsageFlags usage, VmaMemoryUsage memoryUsage);
 };
