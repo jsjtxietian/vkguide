@@ -43,6 +43,14 @@ struct FrameData
 
 	AllocatedBuffer cameraBuffer;
 	VkDescriptorSet globalDescriptor;
+
+	AllocatedBuffer objectBuffer;
+	VkDescriptorSet objectDescriptor;
+};
+
+struct GPUObjectData
+{
+	glm::mat4 modelMatrix;
 };
 
 class PipelineBuilder
@@ -157,6 +165,7 @@ public:
 	AllocatedImage _depthImage;
 
 	VkDescriptorSetLayout _globalSetLayout;
+	VkDescriptorSetLayout _objectSetLayout;
 	VkDescriptorPool _descriptorPool;
 
 	GPUSceneData _sceneParameters;
