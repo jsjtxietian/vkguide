@@ -60,6 +60,12 @@ struct GPUObjectData
 	glm::mat4 modelMatrix;
 };
 
+struct Texture
+{
+	AllocatedImage image;
+	VkImageView imageView;
+};
+
 class PipelineBuilder
 {
 public:
@@ -181,6 +187,9 @@ public:
 	// the format for the depth image
 	VkFormat _depthFormat;
 
+	// texture hashmap
+	std::unordered_map<std::string, Texture> _loadedTextures;
+
 	// frame storage
 	FrameData _frames[FRAME_OVERLAP];
 
@@ -235,6 +244,7 @@ private:
 	bool load_shader_module(const char *filePath, VkShaderModule *outShaderModule);
 
 	void load_meshes();
+	void load_images();
 
 	void upload_mesh(Mesh &mesh);
 
