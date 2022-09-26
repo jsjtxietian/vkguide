@@ -29,7 +29,7 @@ bool vkutil::load_image_from_file(VulkanEngine &engine, const char *file, Alloca
     // copy data to buffer
     void *data;
     vmaMapMemory(engine._allocator, stagingBuffer._allocation, &data);
-    memcpy(data, pixel_ptr, static_cast<size_t>(imageSize));
+    memcpy(data, pixels, static_cast<size_t>(imageSize));
     vmaUnmapMemory(engine._allocator, stagingBuffer._allocation);
     // we no longer need the loaded data, so we can free the pixels as they are now in the staging buffer
     stbi_image_free(pixels);

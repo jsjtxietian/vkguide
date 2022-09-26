@@ -2,13 +2,15 @@
 # Add source to this project's executable.
 add_executable(vulkan_guide
     main.cpp
-    vk_engine.cpp
+    vk_initializers.h
     vk_engine.h
     vk_types.h
     vk_mesh.h
+    vk_textures.h
+    vk_engine.cpp
     vk_mesh.cpp
     vk_initializers.cpp
-    vk_initializers.h)
+    vk_textures.cpp)
 
 
 set_property(TARGET vulkan_guide PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:vulkan_guide>")
