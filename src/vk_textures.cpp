@@ -2,6 +2,9 @@
 #include "vk_initializers.h"
 #include <iostream>
 
+#include "texture_asset.h"
+#include "asset_loader.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -108,6 +111,60 @@ bool vkutil::load_image_from_file(VulkanEngine &engine, const char *file, Alloca
     std::cout << "Texture loaded successfully " << file << std::endl;
 
     outImage = newImage;
+
+    return true;
+}
+
+bool vkutil::load_image_from_asset(VulkanEngine &engine, const char *filename, AllocatedImage &outImage)
+{
+    assets::AssetFile file;
+    bool loaded = assets::load_binaryfile(filename, file);
+
+    if (!loaded)
+    {
+        std::cout << "Error when loading texture " << filename << std::endl;
+        return false;
+    }
+
+    assets::TextureInfo textureInfo = assets::read_texture_info(&file);
+
+    VkDeviceSize imageSize = textureInfo.textureSize;
+    VkFormat image_format;
+    switch (textureInfo.textureFormat)
+    {
+    case assets::TextureFormat::RGBA8:
+        image_format = VK_FORMAT_R8G8B8A8_UNORM;
+        break;
+    default:
+        return false;
+    }
+
+    AllocatedBufferUntyped stagingBuffer = engine.create_buffer(imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_MEMORY_USAGE_UNKNOWN, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_CACHED_BIT);
+
+    std::vector<MipmapInfo> mips;
+
+    void *data;
+    vmaMapMemory(engine._allocator, stagingBuffer._allocation, &data);
+    size_t offset = 0;
+    {
+
+        for (int i = 0; i < textureInfo.pages.size(); i++)
+        {
+            ZoneScopedNC("Unpack Texture", tracy::Color::Magenta);
+            MipmapInfo mip;
+            mip.dataOffset = offset;
+            mip.dataSize = textureInfo.pages[i].originalSize;
+            mips.push_back(mip);
+            assets::unpack_texture_page(&textureInfo, i, file.binaryBlob.data(), (char *)data + offset);
+
+            offset += mip.dataSize;
+        }
+    }
+    vmaUnmapMemory(engine._allocator, stagingBuffer._allocation);
+
+    outImage = upload_image_mipmapped(textureInfo.pages[0].width, textureInfo.pages[0].height, image_format, engine, stagingBuffer, mips);
+
+    vmaDestroyBuffer(engine._allocator, stagingBuffer._buffer, stagingBuffer._allocation);
 
     return true;
 }
