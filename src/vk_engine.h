@@ -131,7 +131,7 @@ public:
 	int _frameNumber{0};
 	int _selectedShader{0};
 
-	VkExtent2D _windowExtent{1700, 900};
+	VkExtent2D _windowExtent{850, 450};
 
 	struct SDL_Window *_window{nullptr};
 
@@ -235,6 +235,8 @@ private:
 	void init_pipelines();
 
 	void init_scene();
+
+	void init_imgui();
 
 	void init_descriptors();
 
