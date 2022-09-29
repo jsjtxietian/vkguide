@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Fitting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Gamma.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Half.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Plane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\SphericalHarmonic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\nvmath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Box.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Color.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Fitting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Gamma.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Half.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Matrix.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Plane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Plane.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\SphericalHarmonic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\Vector.inl">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvmath\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{2761C76B-DC1F-309E-A520-CA5236CA8BD1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{70BD7628-E00E-3B65-A3A5-FB27464899DF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

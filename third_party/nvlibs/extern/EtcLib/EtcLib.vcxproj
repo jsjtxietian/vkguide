@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6B23A604-8533-3064-B82E-4E09BCB82D8F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>EtcLib</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\libs\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">EtcLib.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">EtcLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\libs\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">EtcLib.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">EtcLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\libs\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">EtcLib.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">EtcLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\libs\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">EtcLib.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">EtcLib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;__SSE2__;__SSE__;__MMX__;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\Etc;C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\.\EtcCodec;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools/extern/EtcLib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools -BC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs --check-stamp-file C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs/extern/EtcLib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvlibs\extern\EtcLib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools/extern/EtcLib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools -BC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs --check-stamp-file C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs/extern/EtcLib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvlibs\extern\EtcLib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools/extern/EtcLib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools -BC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs --check-stamp-file C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs/extern/EtcLib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvlibs\extern\EtcLib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools/extern/EtcLib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvidia-texture-tools -BC:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs --check-stamp-file C:/Users/tian.xie/Desktop/vulkan-guide/third_party/nvlibs/extern/EtcLib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvlibs\extern\EtcLib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\Etc.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\Etc.h" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcColor.h" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcColorFloatRGBA.h" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcConfig.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcImage.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcImage.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcMath.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\Etc\EtcMath.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding.h" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4EncodingBits.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_ETC1.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_ETC1.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_R11.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_R11.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RG11.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RG11.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RGB8.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RGB8.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RGB8A1.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RGB8A1.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RGBA8.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcBlock4x4Encoding_RGBA8.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcDifferentialTrys.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcDifferentialTrys.h" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcErrorMetric.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcIndividualTrys.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcIndividualTrys.h" />
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcSortedBlockList.cpp" />
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\extern\EtcLib\EtcCodec\EtcSortedBlockList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvlibs\ZERO_CHECK.proj">
+      <Project>{79BE918D-EF71-3917-B91A-55F4DE134F34}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

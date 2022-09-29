@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\BlockDXT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\ColorBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\DirectDrawSurface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\ErrorMetric.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\Filter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\FloatImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\ImageIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\NormalMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\KtxFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\nvimage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\BlockDXT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\ColorBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\DirectDrawSurface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\ErrorMetric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\Filter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\FloatImage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\ImageIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\NormalMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\PixelFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\PsdFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\TgaFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\KtxFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\tian.xie\Desktop\vulkan-guide\third_party\nvidia-texture-tools\src\nvimage\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{2761C76B-DC1F-309E-A520-CA5236CA8BD1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{70BD7628-E00E-3B65-A3A5-FB27464899DF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
